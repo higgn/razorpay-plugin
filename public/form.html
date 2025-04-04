@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Entry - Sunmax AI Talent Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <header class="main-header sunmax-theme">
+        <h1>Submit Your Entry</h1>
+        <p>Sunmax AI Talent Quest - <span id="category-title">Category</span></p>
+    </header>
+
+    <main class="container">
+        <h2 style="text-align: center; margin-bottom: var(--spacing-lg);">Participant Details & Submission</h2>
+        <div class="form-container">
+            <form id="submission-form" enctype="multipart/form-data">
+                <input type="hidden" id="category" name="category" value="">
+
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    <div class="error-message" id="name-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="number">Phone Number (10 Digits):</label>
+                    <input type="tel" id="number" name="number" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number" placeholder="Enter your 10-digit mobile number">
+                    <div class="error-message" id="number-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Full Address:</label>
+                    <textarea id="address" name="address" rows="3" required placeholder="Enter your complete address"></textarea>
+                    <div class="error-message" id="address-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="submissionFile">Upload Your Submission File:</label>
+                    <input type="file" id="submissionFile" name="submissionFile" required accept="image/*,application/pdf,audio/*,video/*">
+                    <small>Accepted formats: Images (JPG, PNG), PDF, Audio (MP3), Video (MP4). Max 100MB.</small>
+                    <div class="error-message" id="file-error"></div>
+                    </div>
+
+                <div id="payment-section">
+                    <p><strong>Entry Fee: ₹100 (INR)</strong></p>
+                    <button type="button" id="proceed-to-pay-btn" class="btn btn-accent">Proceed to Secure Payment</button>
+                </div>
+
+                <div id="form-error" class="global-error"></div>
+                <div id="loading-indicator"><p>Processing...</p></div>
+            </form>
+        </div>
+    </main>
+
+     <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><strong>Email:</strong> <a href="mailto:your-support-email@sunmax.live">your-support-email@sunmax.live</a></p> <p><strong>Phone:</strong> +91-XXXXXXXXXX</p> <p><strong>Address:</strong> Your City, Your State, India</p> </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                 <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cancellation &amp; Refunds</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Deletion Policy</a></li>
+                 </ul>
+            </div>
+            <div class="footer-legal">
+                 <p>&copy; 2025 Sunmax. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/form.js"></script>
+</body>
+</html>

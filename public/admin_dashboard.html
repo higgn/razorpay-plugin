@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sunmax AI Talent Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <header class="main-header sunmax-theme">
+        <h1>Admin Dashboard</h1>
+        <p>Manage Sunmax AI Talent Quest Submissions</p>
+         <button id="logout-btn" class="btn btn-secondary">Logout</button>
+    </header>
+    <main class="container dashboard-container">
+        <h2>All Submissions</h2>
+         <div id="loading-submissions" style="text-align: center; padding: 20px;">Loading submissions...</div>
+         <div id="submissions-error" class="global-error"></div>
+
+        <div class="table-responsive">
+            <table id="submissions-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Number</th>
+                        <th>Category</th>
+                        <th>File</th>
+                        <th>Payment ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="submissions-tbody">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><strong>Email:</strong> <a href="mailto:your-support-email@sunmax.live">your-support-email@sunmax.live</a></p> <p><strong>Phone:</strong> +91-XXXXXXXXXX</p> <p><strong>Address:</strong> Your City, Your State, India</p> </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                 <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cancellation &amp; Refunds</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Deletion Policy</a></li>
+                 </ul>
+            </div>
+            <div class="footer-legal">
+                 <p>&copy; 2025 Sunmax. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+     <script src="js/admin.js"></script>
+</body>
+</html>

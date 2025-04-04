@@ -1,0 +1,1 @@
+gsutil mb -p triple-reef-453214-e6 -l asia-south1 gs://sunmax-comp-uploads-agra-2025
