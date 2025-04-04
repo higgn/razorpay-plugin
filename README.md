@@ -10,7 +10,7 @@ This project utilizes a modern stack including Node.js, Express, MongoDB Atlas f
 
 This README provides a comprehensive guide covering the entire setup, deployment, and configuration process.
 
-*[Placeholder: Add a screenshot of the final deployed homepage - https://competition.sunmax.live]*
+![image](https://github.com/user-attachments/assets/c8f14692-6f0d-43ef-bfaf-8d2e7634afe4)
 
 ## Features
 
@@ -154,15 +154,16 @@ APIs provide access to specific Google Cloud services. You need to enable them f
     ```powershell
     gcloud services enable run.googleapis.com storage.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com iam.googleapis.com --project=YOUR_PROJECT_ID
     ```
-    * *[Placeholder: Add screenshot of IAM page if permission errors occur]*
-    * *[Placeholder: Add screenshot of successful API enabling output]*
+![image](https://github.com/user-attachments/assets/a5ad19c0-8dc0-43eb-aeab-9370fa61c88a)
 
 ### 3. MongoDB Atlas Setup
 
 * **Create Cluster:** If you haven't already, create a free M0 tier cluster in MongoDB Atlas. Choose a region close to your users or your Cloud Run region.
 * **Create Database User:** Go to "Database Access" and create a user with read/write privileges. Securely note the username and password.
 * **Configure Network Access:** Go to "Network Access". Add an entry `0.0.0.0/0` to allow connections from any IP address. This is necessary for Cloud Run instances (whose IPs change) to connect. For higher security, you might explore VPC Peering or Private Endpoints later.
-    * *[Placeholder: Add screenshot of MongoDB Atlas Network Access settings]*
+
+  ![image](https://github.com/user-attachments/assets/a7ded06b-b02f-4d2d-9a7a-0f37107a69a7)
+
 * **Get Connection String:** Go to your cluster's "Connect" -> "Connect your application" section. Select the Node.js driver version. Copy the connection string (`mongodb+srv://...`). Replace the `<username>` and `<password>` placeholders with the credentials you created. Use this full string for the `MONGODB_URI` in your `.env` file and later in Cloud Run environment variables.
 
 ### 4. Google Cloud Storage (GCS) Bucket Setup
@@ -176,15 +177,17 @@ This bucket will store the files uploaded by participants.
     # Replace 'your-unique-bucket-name-here' and 'asia-south1' if needed
     gsutil mb -p YOUR_PROJECT_ID -l asia-south1 gs://your-unique-bucket-name-here/
     ```
-    * *[Placeholder: Add screenshot of successful gsutil mb command output or GCS console view]*
+    ![image](https://github.com/user-attachments/assets/2d5a29da-55fb-49e1-9f0a-ba2a6c5fa99c)
+
 * **Set Permissions for Public Read Access:** This allows the application (and admin downloads) to easily access the files via URL.
     ```powershell
     # Replace 'your-unique-bucket-name-here' with your actual bucket name
     gsutil uniformbucketlevelaccess set on gs://your-unique-bucket-name-here/
     gsutil iam ch allUsers:objectViewer gs://your-unique-bucket-name-here/
+
+    
     ```
     * **Note:** This makes all uploaded files publicly readable via their URL. For sensitive data, consider keeping files private and using Signed URLs for downloads (requires code changes).
-    * *[Placeholder: Add screenshot confirming bucket permissions]*
 
 ### 5. Artifact Registry Repository Setup
 
@@ -201,7 +204,7 @@ This repository stores your built container images.
         --description="Docker repository for competition app" `
         --project=YOUR_PROJECT_ID
     ```
-    * *[Placeholder: Add screenshot of successful repository creation]*
+![image](https://github.com/user-attachments/assets/e3ebf7c8-3863-4b5c-a372-dc5450c7e718)
 
 ## Containerization (Dockerfile)
 
@@ -263,7 +266,7 @@ This step uses Google Cloud Build to create the container image from your code a
     ```
     *Explanation: This tag points to the Artifact Registry repository located in `asia-south1`. Cloud Build will build the image and store it there.*
 3.  Wait for the build to complete successfully.
-    *[Placeholder: Add screenshot of successful Cloud Build output]*
+![image](https://github.com/user-attachments/assets/fa33e364-e0b5-48d5-9573-1f1479bfad9e)
 
 ## Deploying to Google Cloud Run
 
@@ -272,7 +275,7 @@ This deploys your container image as a scalable web service.
 ### Initial Deployment & Region Issue
 
 An initial deployment attempt to `asia-south1` revealed that direct custom domain mapping is not supported in that region for this service configuration.
-*[Placeholder: Optional - Add screenshot of the Cloud Run region error for domain mapping]*
+![image](https://github.com/user-attachments/assets/7bb42147-fcca-45b1-b1fc-d6ef551d56a5)
 
 ### Redeployment to Supported Region (`us-central1`)
 
@@ -299,7 +302,7 @@ To enable custom domain mapping, the service was redeployed to `us-central1`.
     *Replace placeholders `[YOUR_...]` with your actual values.*
 2.  Confirm prompts with `Y`.
 3.  Wait for deployment to finish. Note the Service URL provided (e.g., `https://competition-app-....-uc.a.run.app`).
-    *[Placeholder: Add screenshot of successful Cloud Run deployment output with Service URL]*
+![image](https://github.com/user-attachments/assets/9a1dc8a2-f3bd-4e6e-aa17-835fa2a526bc)
 
 ### (Optional but Recommended) Cleanup Old Service
 
@@ -308,7 +311,7 @@ If you successfully deployed to `asia-south1` initially, delete that unused serv
 # Command to DELETE the service in asia-south1
 gcloud run services delete competition-app --region=asia-south1 --project=YOUR_PROJECT_ID
 ```
-*[Placeholder: Optional - Add screenshot confirming deletion or showing only the us-central1 service]*
+![image](https://github.com/user-attachments/assets/2668a07d-10a3-401d-8ff2-d0395ad736cc)
 
 ## DNS & Custom Domain Setup (`competition.sunmax.live`)
 
@@ -317,7 +320,7 @@ This maps your user-friendly subdomain to the deployed Cloud Run service.
 ### 1. Configure DNS at Provider (Netlify)
 
 Since `sunmax.live` uses Netlify nameservers, DNS records must be added in the Netlify UI. Attempts to add records at the registrar (Name.com) will fail.
-*[Placeholder: Screenshot of Name.com nameserver warning]*
+![image](https://github.com/user-attachments/assets/1e8c5817-ea11-4295-bb72-2bbaeec2bac3)
 
 * **Add CNAME Record:**
     1.  Log in to Netlify -> Domains -> `sunmax.live` -> DNS Panel.
@@ -327,7 +330,7 @@ Since `sunmax.live` uses Netlify nameservers, DNS records must be added in the N
         * **Value:** `ghs.googlehosted.com.` (Include the trailing dot!)
         * **TTL:** Default
     3.  Save the record.
-        *[Placeholder: Screenshot of CNAME record added in Netlify DNS Panel]*
+![image](https://github.com/user-attachments/assets/382e7fe0-8fa0-422e-83bf-a2f7ad1cceee)
 
 ### 2. Map Domain in Cloud Run
 
@@ -336,12 +339,12 @@ Since `sunmax.live` uses Netlify nameservers, DNS records must be added in the N
 3.  Enter the full subdomain: `competition.sunmax.live`.
 4.  Click Continue.
 5.  **Verification:** Google will provide details for a verification record (usually TXT). Copy these details.
-    *[Placeholder: Screenshot of Google's TXT verification record details]*
 6.  **Add Verification Record in Netlify:** Go back to Netlify DNS panel for `sunmax.live`. Add the TXT record exactly as specified by Google (e.g., Name might be `@` or `_google-site-verification`, Value will be a unique string). Save it.
-    *[Placeholder: Screenshot of TXT record added in Netlify DNS Panel]*
 7.  **Verify in Cloud Run:** Go back to the Cloud Run mapping page and click "Verify". This may take a few minutes for DNS propagation.
 8.  **SSL Provisioning:** Once verified, Cloud Run automatically provisions an SSL certificate. Wait for the status to become "Active" or "Serving".
-    *[Placeholder: Screenshot of Active Custom Domain mapping in Cloud Run]*
+![image](https://github.com/user-attachments/assets/94cc0a57-ead4-485c-90e9-4bad10da430e)
+![image](https://github.com/user-attachments/assets/53fd6942-8a07-4cee-a22c-65f5ba9eda6d)
+
 
 ### 3. Test Custom Domain
 
@@ -381,7 +384,6 @@ After setting up the custom domain (`https://competition.sunmax.live`), you must
 4.  Add `https://competition.sunmax.live` to "Authorized JavaScript origins".
 5.  Add `https://competition.sunmax.live/YOUR_CALLBACK_PATH` (replace with your actual path, e.g., `/auth/google/callback`) to "Authorized redirect URIs".
 6.  Save changes.
-    *[Placeholder: Screenshot of updated Google OAuth Credentials page]*
 
 ### Facebook Login
 
@@ -390,7 +392,6 @@ After setting up the custom domain (`https://competition.sunmax.live`), you must
 3.  Add `https://competition.sunmax.live/YOUR_CALLBACK_PATH` (replace with your actual path, e.g., `/auth/facebook/callback`) to "Valid OAuth Redirect URIs".
 4.  Ensure `competition.sunmax.live` (or maybe just `sunmax.live`) is listed under Settings -> Basic -> App domains.
 5.  Save changes.
-    *[Placeholder: Screenshot of updated Facebook Login Settings page]*
 
 ## Updating the Deployed Application
 
@@ -421,6 +422,8 @@ When you make changes to the code (frontend or backend):
 
 * **Check Cloud Run Logs:** Go to your service in Cloud Run -> Logs tab. Filter by severity (Error, Warning) to find application or container startup issues.
 * **Check Browser DevTools:** Open your browser's developer tools (usually F12). Check the Console tab for frontend JavaScript errors and the Network tab for failed API requests (check status codes like 4xx, 5xx).
+
+* SOME PARTS OR OPTIONAL SO DONT WORRY 
 * **Verify Environment Variables:** In the Cloud Run UI, edit your service revision and check the "Variables & Secrets" tab to ensure all environment variables (DB URI, API Keys, Bucket Name, etc.) are correctly set.
 * **Check DNS Propagation:** Use dnschecker.org to verify your CNAME (`competition`) and TXT (verification) records are visible globally.
 * **`gcloud` Command Errors:** Double-check project IDs, regions, repository names, service names, and ensure you are running commands from the correct directory with sufficient permissions (Administrator PowerShell if needed).
